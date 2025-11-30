@@ -1,0 +1,49 @@
+Visual Prolog KB template and integration notes
+
+This file contains a simple, copy-paste friendly Visual Prolog skeleton and notes to integrate the Python exporter output (`predicted_stress_facts.pl`).
+
+Important: Visual Prolog (the commercial IDE) uses its own project and source file formats. Below is a minimal, easy-to-follow approach you can paste into a new Visual Prolog "Console Application" project and adapt.
+
+1) Convert facts file into Visual Prolog database
+
+The Python exporter already writes `predicted_stress_facts.pl` using classic Prolog facts of the form:
+
+predicted_stress('F001','Medium').
+
+Visual Prolog does not use `consult/1` the same way SWI-Prolog does. The easiest approach is:
+- Open `predicted_stress_facts.pl` in a text editor and copy the fact lines into a new Visual Prolog source file (see step 2) or
+- Keep the file as-is and write a tiny Visual Prolog parser to read each line and assert facts at runtime.
+
+2) Minimal Visual Prolog KB (recommended: paste into a project source file)
+
+/*
+   Paste the following into a new source file in a Visual Prolog Console Application project.
+   Name the file: kb.predicates (or anything) inside the project and then compile.
+*/
+
+% --- Start of example Visual Prolog-style rules (illustrative) ---
+% NOTE: Visual Prolog syntax differs from SWI-Prolog. The following shows the logical rules you should implement
+% in the Visual Prolog project. If you use the Visual Prolog IDE, create a Console Application and add the
+% appropriate predicate and clause sections following the IDE templates.
+
+% Facts (copied from predicted_stress_facts.pl):
+% predicted_stress('F001','Low').
+% predicted_stress('F002','High').
+
+% Rules (conceptual):
+% recommendation('Low', ['Maintain current schedule','Monitor workload']).
+% recommendation('Medium', ['Prioritize tasks','Delegate','Ensure 7+ hours sleep']).
+% recommendation('High', ['Reduce course load','Request admin support','Schedule breaks','Seek wellness resources']).
+
+% The Visual Prolog program should:
+% - Load or contain the predicted_stress facts
+% - For each predicted_stress(FacultyID, StressLevel) produce the matching recommendations
+% - Print or write the recommendations to stdout or a file
+
+% If you're unfamiliar with Visual Prolog file structure, a safe route is to use these logical clauses
+% as comments and implement them using the Visual Prolog IDE templates (they provide skeleton code for
+% predicates, clauses and program entry point).
+
+% --- End of example ---
+
+If you want, I can transform these into an actual Visual Prolog project structure (.pro project and .pred source files) tailored to the exact Visual Prolog version you have — tell me which Visual Prolog version/edition you use (for example "Visual Prolog 7.4") and I'll produce a ready-to-import project.
